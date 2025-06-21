@@ -1,6 +1,6 @@
 /* ChatBot.css */
 .chatbot-container {
-  height: 100vh;
+  height : 90vh;
   width: 100%;
   background: #0f0f0f;
   font-family: 'Segoe UI', sans-serif;
@@ -88,12 +88,13 @@
 
 
 .input-area {
+  position:static;
   width: 80%;
   margin: auto;
   margin-bottom: 4rem;
   border-radius: 1.5rem;
-  display: flex;
-  flex-direction: column;
+  display:grid;
+  grid-template-columns: 2;
   gap: 0.5rem;
   padding: 1rem;
   align-items: flex-end;

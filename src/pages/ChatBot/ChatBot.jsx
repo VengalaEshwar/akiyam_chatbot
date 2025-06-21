@@ -1,16 +1,24 @@
 // ChatBot.jsx
-import './ChatBot.css';
-import { useState, useRef, useEffect } from 'react';
-import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
-import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faArrowUp, faComment } from '@fortawesome/free-solid-svg-icons';
-import { v4 as uuidv4 } from 'uuid';
-
+import "./ChatBot.css";
+import "../../index.css";
+import { useState, useRef, useEffect } from "react";
+import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
+// import { motion } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBars,
+  faArrowUp,
+  faComment,
+  faPlus,
+  faScrewdriverWrench,
+} from "@fortawesome/free-solid-svg-icons";
+import { v4 as uuidv4 } from "uuid";
 function ChatBot() {
   const [chats, setChats] = useState([]);
   const [currentChatId, setCurrentChatId] = useState(null);
-  const [prompt, setPrompt] = useState('');
+  const [isPlus,setIsPlus]=useState(false);
+  const [isTool,setIsTool]=useState(false);
+  const [prompt, setPrompt] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
   const textareaRef = useRef(null);
   const [lastResponse, setLastResponse] = useState("");
@@ -18,18 +26,18 @@ function ChatBot() {
   const autoResize = () => {
     const textarea = textareaRef.current;
     if (textarea) {
-      textarea.style.height = 'auto';
-      textarea.style.height = Math.min(textarea.scrollHeight, 200) + 'px';
+      textarea.style.height = "auto";
+      textarea.style.height = Math.min(textarea.scrollHeight, 200) + "px";
     }
   };
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
 
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const currentChat = chats.find(chat => chat.id === currentChatId);
+  const currentChat = chats.find((chat) => chat.id === currentChatId);
   useEffect(() => {
     const container = messagesContainerRef.current;
     if (container) {
@@ -40,37 +48,47 @@ function ChatBot() {
   const resetBox = () => {
     const textarea = textareaRef.current;
     if (textarea) {
-      textarea.style.height = 'auto';
+      textarea.style.height = "auto";
     }
   };
 
   const handleNewChat = () => {
-    const hasEmptyChat = chats.find(chat => chat.chats.length === 0);
+    const hasEmptyChat = chats.find((chat) => chat.chats.length === 0);
     if (!hasEmptyChat) {
       const id = uuidv4();
       const newChat = { id, title: `Chat ${chats.length + 1}`, chats: [] };
-      setChats(prev => [newChat, ...prev]);
+      setChats((prev) => [newChat, ...prev]);
       setCurrentChatId(id);
     }
   };
+  const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef(null);
 
+  const handleClick = () => {
+    fileInputRef.current.click(); // trigger hidden file input
+  };
+
+  const handleChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+    console.log("Selected:", e.target.files[0]);
+  };
   const handleSend = () => {
     if (!prompt.trim() || !currentChatId) return;
 
     const fakeResponse = "Typing this slowly... ✨";
     setLastResponse(fakeResponse);
-    const updatedChats = chats.map(chat => {
+    const updatedChats = chats.map((chat) => {
       if (chat.id === currentChatId) {
         return {
           ...chat,
-          chats: [...chat.chats, { req: prompt, res: fakeResponse }]
+          chats: [...chat.chats, { req: prompt, res: fakeResponse }],
         };
       }
       return chat;
     });
 
     setChats(updatedChats);
-    setPrompt('');
+    setPrompt("");
     resetBox();
   };
   const newChatRef = useRef(null);
@@ -86,24 +104,33 @@ function ChatBot() {
   return (
     <div className="chatbot-container">
       <div className="mobile-nav">
-        <FontAwesomeIcon icon={faBars} onClick={() => setShowSidebar(!showSidebar)} />
+        <FontAwesomeIcon
+          icon={faBars}
+          onClick={() => setShowSidebar(!showSidebar)}
+        />
       </div>
       <PanelGroup direction="horizontal" className="main-split">
         {(showSidebar || window.innerWidth >= 768) && (
           <div className="sidebar w-2xs ">
             <div className="flex gap-1.5 flex-col p-2">
-              <button className="hover:bg-[#333] p-2 rounded-xl cursor-pointer"
+              <button
+                className="hover:bg-[#333] p-2 rounded-xl cursor-pointer"
                 ref={newChatRef}
-                onClick={handleNewChat}>
+                onClick={handleNewChat}
+              >
                 <FontAwesomeIcon icon={faComment} size="lg" className="mr-2" />
                 New Chat
               </button>
               <h2>Previous Chats</h2>
-              <ul className='flex flex-col-reverse gap-1'>
+              <ul className="flex flex-col-reverse gap-1">
                 {chats.map((chat) => (
-                  <li key={chat.id}
-                    className={`hover:bg-[#333] p-2 rounded-xl cursor-pointer ${currentChatId === chat.id ? 'bg-[#444]' : ''}`}
-                    onClick={() => setCurrentChatId(chat.id)}>
+                  <li
+                    key={chat.id}
+                    className={`hover:bg-[#333] p-2 rounded-xl cursor-pointer ${
+                      currentChatId === chat.id ? "bg-[#444]" : ""
+                    }`}
+                    onClick={() => setCurrentChatId(chat.id)}
+                  >
                     {chat.title}
                   </li>
                 ))}
@@ -112,26 +139,25 @@ function ChatBot() {
           </div>
         )}
 
-        <Panel defaultSize={60} className="chat-area middle-tab h-screen" >
-          <div className="messages middle-tab" ref={messagesContainerRef} >
-            {currentChat && currentChat.chats.map((entry, idx) => (
-              <div key={idx} className="chat-pair">
-                <div className="message-req">
-                  {entry.req}
+        <Panel defaultSize={60} className="chat-area middle-tab h-screen">
+          <div className="messages middle-tab" ref={messagesContainerRef}>
+            {currentChat &&
+              currentChat.chats.map((entry, idx) => (
+                <div key={idx} className="chat-pair">
+                  <div className="message-req">{entry.req}</div>
+                  <motion.div
+                    className="message-res"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    {entry.res}
+                  </motion.div>
                 </div>
-                <motion.div
-                  className="message-res"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  {entry.res}
-                </motion.div>
-              </div>
-            ))}
+              ))}
           </div>
           {currentChat && (
-            <div className="input-area">
+            <div className="input-area  ">
               <textarea
                 className="chat-input"
                 placeholder="Enter prompt.........."
@@ -141,7 +167,7 @@ function ChatBot() {
                   autoResize();
                 }}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
+                  if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
                     handleSend();
                   }
@@ -149,11 +175,68 @@ function ChatBot() {
                 rows={1}
                 ref={textareaRef}
               />
-              <div className="file-handle">
-                <button onClick={handleSend} className="rounded-2xl bg-[#ececec] px-5 py-3 cursor-pointer hover:bg-[#bab6b6] text-[1.3rem] text-black 
-             ">
-                  <FontAwesomeIcon icon={faArrowUp} />
-                </button>
+              <div className="file-handle flex justify-between items-center">
+                <div className="input-area-donw-left flex gap-1">
+                  <div className="input-area-donw-left-plus">
+                    {isPlus && (
+                      <ul className="absolute bg-[#7e7b7b] p-3 bottom-35 z-10 rounded shadow glass min-w-[10rem]">
+                        <li
+                            className="hover:bg-[#737171] p-2 rounded-md cursor-pointer"
+                            onClick={handleClick}
+                          >
+                            Upload File
+                          </li>
+
+                          {/* Hidden input */}
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            className="hidden"
+                            onChange={handleChange}
+                          />
+
+                          {/* Optional: Show selected file */}
+                          {selectedFile && (
+                            <p className="mt-2 text-sm text-white">
+                              Selected: {selectedFile.name}
+                            </p>
+                          )}
+                      </ul>
+                    )}
+                    <button
+                      onClick={()=>{setIsPlus(!isPlus);setIsTool(false)}}
+                      className=" text-black hover:bg-[#bab6b6] px-2 py-1 rounded-2xl cursor-pointer"
+                    >
+                      <FontAwesomeIcon icon={faPlus} />
+                    </button>
+                  </div>
+                  <div className="input-area-donw-left-tool">
+                    {isTool && (
+                      <ul className="absolute bg-[#7e7b7b] p-3 bottom-35 z-10 rounded shadow glass min-w-[10rem]">
+                        <li className="hover:bg-[#737171] p-2 rounded-md ">tool 1</li>
+                        <li className="hover:bg-[#737171] p-2 rounded-md ">tool 2</li>
+                        <li className="hover:bg-[#737171] p-2 rounded-md ">tool 3</li>
+                        <li className="hover:bg-[#737171] p-2 rounded-md ">tool 4</li>
+                      </ul>
+                    )}
+                    <button
+                      onClick={()=>{setIsTool(!isTool);setIsPlus(false)}}
+                      className=" text-black hover:bg-[#bab6b6] px-2 py-1 rounded-2xl cursor-pointer
+             "
+                    >
+                      <FontAwesomeIcon icon={faScrewdriverWrench} />
+                    </button>
+                  </div>
+                </div>
+                <div className="input-area-donw-right">
+                  <button
+                    onClick={handleSend}
+                    className="rounded-2xl bg-[#ececec] px-5 py-3 cursor-pointer hover:bg-[#bab6b6] text-[1.3rem] text-black 
+             "
+                  >
+                    <FontAwesomeIcon icon={faArrowUp} />
+                  </button>
+                </div>
               </div>
             </div>
           )}
@@ -168,9 +251,6 @@ function ChatBot() {
             </Panel>
           </>
         )}
-
-
-
       </PanelGroup>
     </div>
   );

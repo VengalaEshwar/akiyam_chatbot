@@ -17,7 +17,7 @@ function Header() {
   );
 
   return (
-    <header className="bg-[#0b0f15] text-white py-4 px-6 flex items-center justify-between shadow-md sticky z-50">
+    <header className="bg-[#0b0f15] header-nav text-white py-4 px-6 flex items-center justify-between shadow-md sticky z-50">
       {/* Left: Logo */}
       <div className="flex items-center gap-3">
         <img src={logo} alt="Logo" className="h-10 w-auto" />
