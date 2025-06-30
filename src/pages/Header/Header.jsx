@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import logo from '../../assets/logo1.png';
 import { NavLink } from 'react-router-dom';
 import './Header.css';
+import ToggleButton from '../../components/ToggleButton/ToggleButton';
 
-function Header() {
+function Header({isDark,setIsDark}) {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   const navLinks = (
@@ -33,6 +34,7 @@ function Header() {
 
       {/* Right: Auth Button & Menu Icon */}
       <div className="flex items-center gap-4">
+     <ToggleButton isDark={isDark} setIsDark={setIsDark} />
         <button className="bg-[#3d3225] text-[#f5f2f0] px-5 py-2 rounded-full font-semibold hover:bg-[#5a4738] transition">
           Sign In / Sign Up
         </button>

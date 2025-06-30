@@ -1,30 +1,99 @@
 /* ChatBot.css */
+
+/* Defining all color variables here for easy theming.
+  This is the default "dark" theme. To create a light theme,
+  you would create a new selector like body.light-theme { ... }
+  and override these variable values.
+*/
+:root {
+  --background-dark-primary: #0f0f0f;
+  --background-dark-secondary: #1a1a1a;
+  --background-dark-tertiary: #1e1e1e;
+  --background-dark-message-req: #333;
+  --background-dark-input-area: #3f3c3c;
+  --background-dark-glass-popup: rgba(126, 123, 123, 0.5); /* Example glass effect */
+  --background-dark-glass-popup-hover: #737171;
+  --background-dark-output-tab: rgba(25, 25, 25, 0.6);
+
+  --text-dark-primary: #e0e0e0;
+  --text-dark-secondary: #ccc;
+  --text-dark-tertiary: #eee;
+  --text-dark-button: #000;
+
+  --border-dark-primary: #333;
+  --border-dark-secondary: #444;
+
+  --interactive-dark-primary: #ececec;
+  --interactive-dark-hover: #bab6b6;
+  --interactive-dark-active-bg: #444;
+  --interactive-dark-sidebar-hover: #333;
+
+  --resize-handle-dark-bg: #444;
+  --scrollbar-dark-bg: transparent;
+
+
+
+
+
+ --background-light-primary: #ffffff; /* Main background - pure white */
+  --background-light-secondary: #f0f0f0; /* Sidebar/secondary background - light grey */
+  --background-light-tertiary: #f8f8f8; /* Slightly off-white for elements like message-res */
+  --background-light-message-req: #e6f7ff; /* A very light blue for user message bubbles */
+  --background-light-input-area: #fdfdfd; /* Input box background - very light almost white */
+  --background-light-glass-popup: rgba(255, 255, 255, 0.9); /* Opaque white popup */
+  --background-light-glass-popup-hover: #e8e8e8; /* Hover for popup items - light grey */
+  --background-light-output-tab: rgba(250, 250, 250, 0.8); /* Output tab background - semi-transparent light grey */
+
+  --text-light-primary: #333333; /* Main text color - dark grey */
+  --text-light-secondary: #555555; /* Secondary text color - medium grey */
+  --text-light-tertiary: #222222; /* More prominent text (like headings) - very dark grey */
+  --text-light-button: #333333; /* Text on buttons - dark grey */
+
+  --border-light-primary: #dddddd; /* Main border color - light grey */
+  --border-light-secondary: #cccccc; /* Slightly darker border - medium light grey */
+
+  --interactive-light-primary: #f0f0f0; /* Button background - light grey */
+  --interactive-light-hover: #e0e0e0; /* Button hover - slightly darker light grey */
+  --interactive-light-active-bg: #d9edf7; /* Active chat background - light sky blue */
+  --interactive-light-sidebar-hover: #eaf6fc; /* Sidebar item hover - very light blue */
+
+  --resize-handle-light-bg: #bbbbbb; /* Resize handle background - medium light grey */
+  --scrollbar-light-bg: transparent; /* Scrollbar background - transparent */
+
+
+
+}
+
+
 .chatbot-container {
-  height : 90vh;
+  height: 90vh;
   width: 100%;
-  background: #0f0f0f;
+  background: var(--background-dark-primary);
   font-family: 'Segoe UI', sans-serif;
-  color: #e0e0e0;
+  color: var(--text-dark-primary);
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-
+.chatbot-container-light{
+   color: var(--text-light-primary);
+   background: var(--background-light-primary);
+}
 .main-split {
   flex-grow: 1;
   display: flex;
 }
 
 .sidebar {
-  background: #1a1a1a;
-  border-right: 1px solid #333;
+  background: var(--background-dark-secondary);
+  border-right: 1px solid var(--border-dark-primary);
   overflow-y: auto;
 }
 
 .sidebar h2 {
   font-size: 1.2rem;
   margin: 0.5rem 0;
-  color: #ccc;
+  color: var(--text-dark-secondary);
 }
 
 .sidebar ul {
@@ -35,9 +104,34 @@
 
 .sidebar li {
   padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-dark-primary);
   font-size: 0.95rem;
 }
+
+.sidebar-button {
+    background-color: transparent;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    color: var(--text-dark-primary);
+    border: none;
+}
+.sidebar-button:hover {
+    background-color: var(--interactive-dark-sidebar-hover);
+}
+
+.chat-history-item {
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+}
+.chat-history-item:hover {
+    background-color: var(--interactive-dark-sidebar-hover);
+}
+.chat-history-item.active {
+    background-color: var(--interactive-dark-active-bg);
+}
+
 
 .chat-area {
   display: flex;
@@ -54,9 +148,6 @@
   margin-bottom: 1rem;
 }
 
-
-
-
 .chat-pair {
   display: flex;
   flex-direction: column;
@@ -66,8 +157,8 @@
 
 .message-req {
   align-self: flex-end;
-  background: #333;
-  color: #eee;
+  background: var(--background-dark-message-req);
+  color: var(--text-dark-tertiary);
   padding: 0.75rem 1rem;
   border-radius: 2rem;
   max-width: 60%;
@@ -77,34 +168,39 @@
 
 .message-res {
   align-self: stretch;
-  background: #1e1e1e;
-  color: #ddd;
+  background: var(--background-dark-tertiary);
+  color: var(--text-dark-primary);
   padding: 1rem;
   border-radius: 1rem;
   font-size: 1rem;
   word-wrap: break-word;
-  border: 1px solid #444;
+  border: 1px solid var(--border-dark-secondary);
 }
 
-
 .input-area {
-  position:static;
+  position: static;
   width: 80%;
   margin: auto;
   margin-bottom: 4rem;
   border-radius: 1.5rem;
-  display:grid;
+  display: grid;
   grid-template-columns: 2;
   gap: 0.5rem;
   padding: 1rem;
   align-items: flex-end;
-  background-color: #3f3c3c;
+  background-color: var(--background-dark-input-area);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* for Safari */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25); /* this is the glass magic */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* subtle border for contrast */
 }
+
 
 .chat-input {
   border: 0;
   padding: 0.75rem 1rem;
-  color: #eee;
+  color: var(--text-dark-tertiary);
+  background-color: var(--background-dark-input-area); /* To make sure it blends */
   line-height: 1.5;
   font-size: 1rem;
   max-height: 200px;
@@ -117,29 +213,79 @@
 
 .chat-input:focus {
   outline: none;
-  border-color: #888;
 }
 
+.popup-menu {
+    position: absolute;
+    background-color: var(--background-dark-glass-popup);
+    backdrop-filter: blur(5px);
+    padding: 0.75rem;
+    bottom: 4rem; /* Adjust as needed */
+    z-index: 10;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    min-width: 10rem;
+}
+
+.popup-menu li {
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    color: var(--text-dark-primary);
+}
+
+.popup-menu li:hover {
+    background-color: var(--background-dark-glass-popup-hover);
+}
+
+.icon-button {
+    color: var(--text-dark-button);
+    background-color: transparent;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    cursor: pointer;
+}
+
+.icon-button:hover {
+    background-color: var(--interactive-dark-hover);
+}
+
+.send-button {
+    border-radius: 9999px;
+    background-color: var(--interactive-dark-primary);
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    color: var(--text-dark-button);
+    font-size: 1.3rem;
+    border: none;
+}
+
+.send-button:hover {
+    background-color: var(--interactive-dark-hover);
+}
+
+
 .output-tab {
-  background: rgba(25, 25, 25, 0.6);
+  background: var(--background-dark-output-tab);
   backdrop-filter: blur(8px);
   padding: 1rem;
   overflow-y: auto;
-  border-left: 1px solid #333;
+  border-left: 1px solid var(--border-dark-primary);
 }
 
 .resize-handle {
   width: 6px;
   cursor: col-resize;
-  background: #444;
+  background: var(--resize-handle-dark-bg);
 }
 
 .mobile-nav {
   display: none;
-  background: #111;
+  background: #111; /* Kept for strong separation */
   padding: 0.75rem 1rem;
   font-size: 1.2rem;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-dark-primary);
   color: #fff;
 }
 
@@ -163,42 +309,148 @@
   .chat-area,
   .output-tab {
     height: 100%;
-    padding : 2rem;
+    padding: 2rem;
     overflow-y: auto;
   }
 }
 
 .middle-tab {
-  overflow-y: auto;
+  overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
 }
 
-/* Chrome, Safari, Edge */
 .middle-tab::-webkit-scrollbar {
   width: 0px;
-  background: transparent; /* Optional */
+  background: var(--scrollbar-dark-bg);
 }
 
 .middle-tab::-webkit-scrollbar-thumb {
-  background: transparent;
-}
-@media (max-width: 768px) {
-  .middle-tab{
-    height : auto;
-    /* width : 100svw; */
-    padding : 0.1rem;
-    background-color: inherit;
-  }
-  /* Styles for tablets and phones */
-  .input-area {
-  width: 100%;
-  margin-bottom: 1rem;
-  border-radius: 1.5rem;
-  flex-direction: row;
-  gap: 0.5rem;
-  padding: 0.4rem;
-  align-items: flex-end;
-  background-color: #3f3c3c;
+  background: var(--scrollbar-dark-bg);
 }
 
-} 
+@media (max-width: 768px) {
+  .middle-tab {
+    height : 90vh;
+    overflow: scroll;
+    padding: 1rem;
+    background-color: inherit;
+  }
+  .input-area {
+    width: 100%;
+    margin-bottom: 3rem;
+    border-radius: 1.5rem;
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 0.4rem;
+    align-items: flex-end;
+
+    background-color: var(--background-dark-input-area);
+  }
+}
+
+/* Light Mode Equivalents for Dark Mode Selectors */
+
+.sidebar-light {
+  background: var(--background-light-secondary);
+  border-right: 1px solid var(--border-light-primary);
+}
+
+.sidebar-light h2 {
+  color: var(--text-light-secondary);
+}
+
+.sidebar-light li {
+  border-bottom: 1px solid var(--border-light-primary);
+}
+
+.sidebar-button-light {
+  color: var(--text-light-primary);
+}
+
+.sidebar-button-light:hover {
+  background-color: var(--interactive-light-sidebar-hover);
+}
+
+.chat-history-item-light:hover {
+  background-color: var(--interactive-light-sidebar-hover);
+}
+
+.chat-history-item-light.active {
+  background-color: var(--interactive-light-active-bg);
+}
+
+.chat-area-light {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.message-req-light {
+  background: var(--background-light-message-req);
+  color: var(--text-light-tertiary);
+}
+
+.message-res-light {
+  background: var(--background-light-tertiary);
+  color: var(--text-light-primary);
+  border: 1px solid var(--border-light-secondary);
+}
+
+.input-area-light {
+  background-color: var(--background-light-input-area);
+}
+
+.chat-input-light {
+  color: var(--text-light-tertiary);
+  background-color: var(--background-light-input-area);
+}
+
+.popup-menu-light {
+  background-color: var(--background-light-glass-popup);
+}
+
+.popup-menu-light li {
+  color: var(--text-light-primary);
+}
+
+.popup-menu-light li:hover {
+  background-color: var(--background-light-glass-popup-hover);
+}
+
+.icon-button-light {
+  color: var(--text-light-button);
+}
+
+.icon-button-light:hover {
+  background-color: var(--interactive-light-hover);
+}
+
+.send-button-light {
+  background-color: var(--interactive-light-primary);
+  color: var(--text-light-button);
+}
+
+.send-button-light:hover {
+  background-color: var(--interactive-light-hover);
+}
+
+.output-tab-light {
+  background: var(--background-light-output-tab);
+  border-left: 1px solid var(--border-light-primary);
+}
+
+.resize-handle-light {
+  background: var(--resize-handle-light-bg);
+}
+
+.mobile-nav-light {
+  border-bottom: 1px solid var(--border-light-primary);
+  background-color: white;
+  color: #000;
+}
+
+.middle-tab-light::-webkit-scrollbar {
+  background: var(--scrollbar-light-bg);
+}
+
+.middle-tab-light::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-light-bg);
+}

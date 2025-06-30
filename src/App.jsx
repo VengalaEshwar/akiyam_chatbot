@@ -9,13 +9,13 @@ import Contact from './pages/Contact/Contact'
 import Explore from './pages/Explore/Explore'
 
 function App() {
-
+ const [isDark, setIsDark] = useState(true);
   return (
    <div className="app h-screen">
-    <Header/>
+    <Header isDark={isDark} setIsDark={setIsDark}/>
     <Routes>
       <Route path="/" element={<Home/>}/>
-      <Route path="/chatbot" element={<AiOptions/>}/>
+      <Route path="/chatbot" element={<AiOptions isDark={isDark} setIsDark={setIsDark}/>}/>
       <Route path="/contact" element={<Contact/>}/>
       <Route path="/explore" element={<Explore/>}/>
     </Routes>
