@@ -315,6 +315,7 @@
 }
 
 .middle-tab {
+  /* min-height: 100svh; */
   overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
 }
@@ -330,12 +331,13 @@
 
 @media (max-width: 768px) {
   .middle-tab {
-    height : 90vh;
+    height : 80svh;
     overflow: scroll;
     padding: 1rem;
     background-color: inherit;
   }
   .input-area {
+    
     width: 100%;
     margin-bottom: 3rem;
     border-radius: 1.5rem;

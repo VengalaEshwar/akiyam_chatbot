@@ -1,0 +1,466 @@
+/* VideoGenerator.css */
+
+/* Re-using color variables directly from ChatBot.css's :root */
+/* No need to redefine them here if ChatBot.css is globally imported or if these are meant to align directly */
+
+/* Base styles applied to both themes */
+.video-generator-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90svh;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif; /* Using font from ChatBot.css */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow: scroll;
+  scrollbar-width: none; 
+}
+
+.content-wrapper {
+  height : 70vh;
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  gap: 30px;
+  max-width: 1200px;
+  width: 100%;
+  margin-top: 20px;
+  justify-content: center;
+}
+.text-area-of-video{
+    resize: none;
+    scrollbar-width: none;
+}
+.input-section,
+.video-display-section {
+  flex: 1;
+  min-width: 300px; /* Minimum width for each section */
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Generic shadow, can be themed */
+  display: flex;
+  flex-direction: column;
+}
+.video-display-section {
+  height : 70vh;
+}
+.input-section {
+  overflow: scroll;
+  max-width: 850px; /* Limit width of input section */
+  scrollbar-width: none;
+}
+
+.tab-buttons {
+  display: flex;
+  margin-bottom: 25px;
+  border-radius: 8px;
+  overflow: hidden;
+  /* Add border for visual separation of tabs */
+  border: 1px solid var(--border-dark-primary); /* Default dark theme border */
+}
+
+.tab-button {
+  flex: 1;
+  padding: 12px 20px;
+  font-size: 1.1em;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* Separator for tab buttons */
+  border-right: 1px solid var(--border-dark-primary); /* Default dark theme separator */
+}
+
+.tab-button:last-child {
+  border-right: none; /* No separator on the last tab button */
+}
+
+.input-area-container { /* Added a container for the input area to simplify styling */
+  margin-bottom: 25px;
+}
+
+.input-area-container label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.input-area-container input{
+  background-color:#3f3c3c;
+  border-radius: 0.5rem;
+  padding : 0.5rem;
+}
+textarea {
+  width: calc(100% - 24px); /* Account for padding */
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid; /* Themed border */
+  font-size: 1em;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  font-family: inherit;
+}
+
+.inspiration-tags {
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: var(--text-dark-secondary); /* Default dark theme text */
+}
+
+.inspiration-tags span.tag {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  margin-left: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  background-color: var(--background-dark-message-req); /* Dark theme tag background */
+  color: var(--text-dark-tertiary); /* Dark theme tag text */
+}
+
+.inspiration-tags span.tag:hover {
+  background-color: var(--interactive-dark-hover); /* Dark theme tag hover */
+}
+
+.image-upload-area {
+  border: 2px dashed; /* Themed border */
+  border-radius: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  background-color: var(--background-dark-input-area); /* Dark theme input area background */
+}
+
+.image-upload-area:hover {
+    background-color: var(--interactive-dark-sidebar-hover); /* Matches sidebar hover for consistent feel */
+}
+
+
+.upload-placeholder {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.selected-image-name {
+  font-size: 1.1em;
+  font-weight: bold;
+  word-break: break-all; /* Ensure long filenames don't overflow */
+}
+
+.options-section {
+  margin-bottom: 30px;
+}
+
+.option-group {
+  margin-bottom: 20px;
+}
+
+.option-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 0; /* Override default label margin */
+  color: var(--text-dark-primary); /* Default dark theme text */
+}
+
+.radio-group input[type="radio"] {
+  margin-right: 8px;
+  transform: scale(1.2);
+  /* Themed radio button color, if possible, might require custom styling */
+}
+
+.generate-button {
+  width: 100%;
+  padding: 15px 25px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.3s ease;
+  background-color: var(--interactive-dark-primary); /* Default dark theme button background */
+  color: var(--text-dark-button); /* Default dark theme button text */
+}
+
+.generate-button:hover {
+  background-color: var(--interactive-dark-hover); /* Default dark theme button hover */
+}
+
+.credits {
+  font-size: 0.9em;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-weight: normal;
+  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent for credits */
+  color: var(--text-dark-primary); /* Default dark theme text */
+}
+
+.video-display-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px; /* Ensure a minimum height for the video display */
+  border-radius: 12px; /* Matches input section border-radius */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Generic shadow, can be themed */
+  background-color: var(--background-dark-output-tab); /* Using output tab background for consistency */
+  backdrop-filter: blur(8px); /* Applying blur for glass effect */
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.generated-video {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.placeholder-video {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 1.5em;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent overlay */
+  color: white; /* Always white for visibility over dark/light blur */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  text-align: center;
+}
+
+/* Dark Theme Specific Styles (default) */
+.video-generator-container.dark-theme {
+  background-color: var(--background-dark-primary);
+  color: var(--text-dark-primary);
+}
+
+.dark-theme .input-section,
+.dark-theme .video-display-section {
+  background-color: var(--background-dark-secondary); /* Using secondary for general sections */
+  color: var(--text-dark-primary);
+}
+
+.dark-theme .tab-buttons {
+  border-color: var(--border-dark-primary);
+}
+
+.dark-theme .tab-button {
+  background-color: var(--background-dark-secondary); /* Tabs blend with section background */
+  color: var(--text-dark-secondary);
+  border-right-color: var(--border-dark-primary);
+}
+
+.dark-theme .tab-button.active {
+  background-color: var(--interactive-dark-active-bg); /* Matches active chat item */
+  color: var(--text-dark-primary);
+}
+
+.dark-theme textarea {
+  background-color: var(--background-dark-input-area);
+  border-color: var(--border-dark-primary);
+  color: var(--text-dark-tertiary); /* Matches chat input text */
+}
+
+.dark-theme textarea::placeholder {
+  color: var(--text-dark-secondary);
+}
+
+.dark-theme .inspiration-tags {
+  color: var(--text-dark-secondary);
+}
+
+.dark-theme .inspiration-tags span.tag {
+  background-color: var(--background-dark-message-req);
+  color: var(--text-dark-tertiary);
+}
+
+.dark-theme .inspiration-tags span.tag:hover {
+  background-color: var(--interactive-dark-hover);
+}
+
+.dark-theme .image-upload-area {
+  border-color: var(--border-dark-primary);
+  background-color: var(--background-dark-input-area);
+  color: var(--text-dark-primary);
+}
+
+.dark-theme .image-upload-area:hover {
+  background-color: var(--interactive-dark-sidebar-hover);
+}
+
+.dark-theme .radio-group label {
+  color: var(--text-dark-primary);
+}
+
+.dark-theme .generate-button {
+  background-color: var(--interactive-dark-primary);
+  color: var(--text-dark-button);
+}
+
+.dark-theme .generate-button:hover {
+  background-color: var(--interactive-dark-hover);
+}
+
+.dark-theme .credits {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: var(--text-dark-primary);
+}
+
+.dark-theme .video-display-section {
+  background-color: var(--background-dark-output-tab);
+}
+
+
+/* Light Theme Specific Styles */
+.video-generator-container.light-theme {
+  background-color: var(--background-light-primary);
+  color: var(--text-light-primary);
+}
+
+.light-theme .input-section,
+.light-theme .video-display-section {
+  background-color: var(--background-light-secondary); /* Using secondary for general sections */
+  color: var(--text-light-primary);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Lighter shadow for light theme */
+}
+
+.light-theme .tab-buttons {
+  border-color: var(--border-light-primary);
+}
+
+.light-theme .tab-button {
+  background-color: var(--background-light-secondary); /* Tabs blend with section background */
+  color: var(--text-light-secondary);
+  border-right-color: var(--border-light-primary);
+}
+
+.light-theme .tab-button.active {
+  background-color: var(--interactive-light-active-bg); /* Matches active chat item */
+  color: var(--text-light-primary);
+}
+
+.light-theme textarea {
+  background-color: var(--background-light-input-area);
+  border-color: var(--border-light-primary);
+  color: var(--text-light-primary); /* Matches chat input text */
+}
+
+.light-theme textarea::placeholder {
+  color: var(--text-light-secondary);
+}
+
+.light-theme .inspiration-tags {
+  color: var(--text-light-secondary);
+}
+
+.light-theme .inspiration-tags span.tag {
+  background-color: var(--background-light-input-area); /* Using input area for light theme tags */
+  color: var(--text-light-secondary);
+  border: 1px solid var(--border-light-primary); /* Add border for definition */
+}
+
+.light-theme .inspiration-tags span.tag:hover {
+  background-color: var(--interactive-light-hover);
+}
+
+.light-theme .image-upload-area {
+  border-color: var(--border-light-primary);
+  background-color: var(--background-light-input-area);
+  color: var(--text-light-primary);
+}
+
+.light-theme .image-upload-area:hover {
+  background-color: var(--interactive-light-sidebar-hover);
+}
+
+.light-theme .radio-group label {
+  color: var(--text-light-primary);
+}
+
+.light-theme .generate-button {
+  background-color: var(--interactive-light-primary);
+  color: var(--text-light-button);
+}
+
+.light-theme .generate-button:hover {
+  background-color: var(--interactive-light-hover);
+}
+
+.light-theme .credits {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: var(--text-light-primary);
+}
+
+.light-theme .video-display-section {
+  background-color: var(--background-light-output-tab);
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .input-section,
+  .video-display-section {
+    width: 100%;
+    max-width: unset; /* Remove max-width on smaller screens */
+  }
+
+  .tab-buttons {
+    flex-direction: column; /* Stack tab buttons vertically */
+  }
+
+  .tab-button {
+    border-radius: 0; /* Remove border-radius when stacked */
+    border-right: none; /* No vertical separator when stacked */
+    border-bottom: 1px solid var(--border-dark-primary); /* Add horizontal separator */
+  }
+
+  .tab-button:last-child {
+    border-bottom: none; /* No separator on the last stacked tab button */
+  }
+
+  .light-theme .tab-button {
+    border-bottom: 1px solid var(--border-light-primary);
+  }
+}
+
+
+.input-area-container select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-dark-primary);
+  background-color: var(--background-dark-input-area);
+  color: var(--text-dark-tertiary);
+  font-size: 1em;
+  font-family: inherit;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+.input-area-container select:focus {
+  outline: none;
+  border-color: var(--interactive-dark-primary);
+}

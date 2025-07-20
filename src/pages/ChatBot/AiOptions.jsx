@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import ChatBot from './ChatBot';
 import './ChatBot.css';
 import ToggleButton from '../../components/ToggleButton/ToggleButton';
+import VideoGenerator from './VideoGenerator';
 
 function AiOptions({isDark,setIsDark}) {
   const [isOpen, setIsOpen] = useState(true);
   // const [isDark, setIsDark] = useState(true);
-
+  const [currWindow,setCurrWindow] = useState(0);
   return (
     <div
       className="flex h-[90vh]"
@@ -47,13 +48,14 @@ function AiOptions({isDark,setIsDark}) {
 
             <ul className="space-y-2">
 
-              {["Chatbot", "Web Builder", "AI Builder"].map((item) => (
+              {["Chatbot", "Video Generator", "AI Builder"].map((item,index) => (
                 <li
                   key={item}
                   className="p-2 rounded cursor-pointer"
                   style={{
                     backgroundColor: `var(--interactive-${isDark ? "dark" : "light"}-hover)`,
                   }}
+                  onClick={()=>setCurrWindow(index)}
                 >
                   {item}
                 </li>
@@ -72,6 +74,7 @@ function AiOptions({isDark,setIsDark}) {
                 style={{
                   backgroundColor: `var(--interactive-${isDark ? "dark" : "light"}-hover)`,
                 }}
+                onClick={()=>setCurrWindow(index)}
               >
                 {icon}
               </li>
@@ -82,7 +85,8 @@ function AiOptions({isDark,setIsDark}) {
 
       {/* Main ChatBot Area */}
       <div className="flex-1">
-        <ChatBot isDark={isDark} />
+        {currWindow==0 && <ChatBot isDark={isDark} />}
+        {currWindow==1 && <VideoGenerator isDark={isDark} />}
       </div>
     </div>
   );

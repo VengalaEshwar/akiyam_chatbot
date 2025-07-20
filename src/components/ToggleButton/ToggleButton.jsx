@@ -1,10 +1,9 @@
 import "./ToggleButton.css";
 
 function ToggleButton({ isDark, setIsDark }) {
-  console.log(isDark);
   return (
-    <label className="switch" >
-      <input type="checkbox" onClick={() => setIsDark(!isDark)}/>
+    <label className="switch">
+      <input type="checkbox" onClick={() => setIsDark(!isDark)} />
       <span className="slider"></span>
     </label>
   );
